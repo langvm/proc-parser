@@ -1,0 +1,19 @@
+
+Field := FIELD, $name:Ident, COLON, $rule:Ident
+
+Pattern := $name:Ident, ARROW, ($rule:Node, COMMA, SEMICOLON)
+
+Branch := LBRACE, ($patterns:Pattern, SEMICOLON, RBRACE), _
+
+List := LPAREN, $field:Field, COMMA, $delimiter:IDENT, COMMA, $term:Ident, RPAREN
+
+Def := $name:Ident, DEFINE, ($rule:Node, COMMA, SEMICOLON)
+
+File := ($definitions:Def, SEMICOLON, EOF)
+
+Node := {
+    Ident => $ident:Ident
+    FIELD => $field:Field
+    LBRACE => $branch:Branch
+    LPAREN => $list:List
+}
